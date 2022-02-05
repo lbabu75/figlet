@@ -1,0 +1,72 @@
+version: "3"
+
+services:
+  spinea:
+    build:
+      context: "."
+      dockerfile: Dockerfile
+    container_name: SpineA
+    restart: on-failure
+    networks:
+      - SpineASubnet
+  spineb:
+    build:
+      context: "."
+      dockerfile: Dockerfile
+    container_name: SpineB
+    restart: on-failure
+    networks:
+      - SpineBSubnet
+  spinec:
+    build:
+      context: "."
+      dockerfile: Dockerfile
+    container_name: SpineC
+    restart: on-failure
+    networks:
+      - SpineCSubnet
+  leafa:
+    build:
+      context: "."
+      dockerfile: Dockerfile
+    container_name: LeafA
+    restart: on-failure
+    networks:
+      - SpineASubnet
+      - SpineBSubnet
+      - SpineCSubnet
+  leafb:
+    build:
+      context: "."
+      dockerfile: Dockerfile
+    container_name: LeafB
+    restart: on-failure
+    networks:
+      - SpineASubnet
+      - SpineBSubnet
+      - SpineCSubnet
+  leafc:
+    build:
+      context: "."
+      dockerfile: Dockerfile
+    container_name: LeafC
+    restart: on-failure
+    networks:
+      - SpineASubnet
+      - SpineBSubnet
+      - SpineCSubnet
+  leafd:
+    build:
+      context: "."
+      dockerfile: Dockerfile
+    container_name: LeafD
+    restart: on-failure
+    networks:
+      - SpineASubnet
+      - SpineBSubnet
+      - SpineCSubnet
+networks:
+  SpineASubnet:
+  SpineBSubnet:
+  SpineCSubnet:
+  
