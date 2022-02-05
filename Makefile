@@ -95,11 +95,11 @@ deb: all debmeta
 # Build and Run Docker containers
 #
 dcrun: deb
-	echo "FROM debian:buster" > dockerfile
-	echo "WORKDIR /app" >> dockerfile
-	echo "COPY ./$(DIST)_all.deb /app" >> dockerfile
-	echo "RUN dpkg -i $(DIST)_all.deb && rm -f $(DIST)_all.deb" >> dockerfile
-	echo "ENTRYPOINT [\"tail\", \"-f\", \"/dev/null\"]" >> dockerfile
+	echo "FROM debian:buster" > Dockerfile
+	echo "WORKDIR /app" >> Dockerfile
+	echo "COPY ./$(DIST)_all.deb /app" >> Dockerfile
+	echo "RUN dpkg -i $(DIST)_all.deb && rm -f $(DIST)_all.deb" >> Dockerfile
+	echo "ENTRYPOINT [\"tail\", \"-f\", \"/dev/null\"]" >> Dockerfile
 	docker-compose -f docker-compose.yml up -d
 
 dist:
