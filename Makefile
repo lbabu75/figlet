@@ -74,10 +74,10 @@ debmeta:
 	rm -rf $(DIST) $(DIST)_all.deb
 	mkdir -p $(DIST)/DEBIAN
 	echo "Package: figlet" > $(DIST)/DEBIAN/control
-	echo "Version: ${VERSION}" >> $(DIST)/DEBIAN/control
+	echo "Version: $(VERSION)" >> $(DIST)/DEBIAN/control
 	echo "Maintainer: lbabu@outlook.com" >> $(DIST)/DEBIAN/control
-	echo "Description: ${PKGNAME} util" >> $(DIST)/DEBIAN/control
-	echo "Homepage: https://github.com/lbabu75/arrcus" >> $(DIST)/DEBIAN/control
+	echo "Description: Figlet util" >> $(DIST)/DEBIAN/control
+	echo "Homepage: https://github.com/lbabu75/figlet" >> $(DIST)/DEBIAN/control
 	echo "Architecture: all" >> $(DIST)/DEBIAN/control
 
 # Build .deb package
