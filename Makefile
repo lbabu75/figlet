@@ -6,14 +6,6 @@
 # Copyright 2002 Christiaan Keet
 # Copyright 2011 Claudio Matsuoka
 
-# Please notice that to follow modern standards and ease third-party
-# package creation, binaries are now installed under BINDIR, and DESTDIR
-# is reserved for the installation pathname prefix.
-#
-# Please make sure BINDIR, MANDIR, DEFAULTFONTDIR and
-#   DEFAULTFONTFILE are defined to reflect the situation
-#   on your computer.  See README for details.
-
 # Don't change this even if your shell is different. The only reason
 # for changing this is if sh is not in the same place.
 SHELL = /bin/sh
@@ -76,14 +68,39 @@ chkfont: chkfont.o
 clean:
 	rm -f *.o *~ core figlet chkfont
 
-install: all
-	mkdir -p $(DESTDIR)$(BINDIR)
-	mkdir -p $(DESTDIR)$(MANDIR)/man6
-	mkdir -p $(DESTDIR)$(DEFAULTFONTDIR)
-	cp $(BINS) $(DESTDIR)$(BINDIR)
-	cp $(MANUAL) $(DESTDIR)$(MANDIR)/man6
-	cp fonts/*.flf $(DESTDIR)$(DEFAULTFONTDIR)
-	cp fonts/*.flc $(DESTDIR)$(DEFAULTFONTDIR)
+# Create Debian package metadata
+#
+debmeta:
+	rm -rf $(DIST) $(DIST)_all.deb
+	mkdir -p $(DIST)/DEBIAN
+	echo "Package: figlet" > $(DIST)/DEBIAN/control
+	echo "Version: ${VERSION}" >> $(DIST)/DEBIAN/control
+	echo "Maintainer: lbabu@outlook.com" >> $(DIST)/DEBIAN/control
+	echo "Description: ${PKGNAME} util" >> $(DIST)/DEBIAN/control
+	echo "Homepage: https://github.com/lbabu75/arrcus" >> $(DIST)/DEBIAN/control
+	echo "Architecture: all" >> $(DIST)/DEBIAN/control
+
+# Build .deb package
+#
+deb: all debmeta
+	mkdir -p $(DIST)$(BINDIR)
+	mkdir -p $(DIST)$(MANDIR)/man6
+	mkdir -p $(DIST)$(DEFAULTFONTDIR)
+	cp $(BINS) $(DIST)$(BINDIR)
+	cp $(MANUAL) $(DIST)$(MANDIR)/man6
+	cp fonts/*.flf $(DIST)$(DEFAULTFONTDIR)
+	cp fonts/*.flc $(DIST)$(DEFAULTFONTDIR)
+	dpkg -b ./$(DIST) ./$(DIST)_all.deb
+
+# Build and Run Docker containers
+#
+dcrun: deb
+	echo "FROM debian:buster" > dockerfile
+	echo "WORKDIR /app" >> dockerfile
+	echo "COPY ./$(DIST)_all.deb /app" >> dockerfile
+	echo "RUN dpkg -i $(DIST)_all.deb && rm -f $(DIST)_all.deb" >> dockerfile
+	echo "ENTRYPOINT [\"tail\", \"-f\", \"/dev/null\"]" >> dockerfile
+	docker-compose -f docker-compose.yml up -d
 
 dist:
 	rm -Rf $(DIST) $(DIST).tar.gz
