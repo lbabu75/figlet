@@ -1,3 +1,8 @@
+
+Added support for build and deploy to docker
+leaf and spine network topology support
+
+
 About FIGlet (Frank, Ian & Glenn's Letters) release 2.2.5, 31 May 2012
 --------------------------------------------------------------------------
 FIGlet is a program that creates large characters out of ordinary
