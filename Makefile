@@ -73,6 +73,7 @@ clean:
 debmeta:
 	rm -rf $(DIST) $(DIST)_all.deb
 	mkdir -p $(DIST)/DEBIAN
+	@cat << EOF > $(DIST)/DEBIAN/control
 	echo "Package: figlet" > $(DIST)/DEBIAN/control
 	echo "Version: $(VERSION)" >> $(DIST)/DEBIAN/control
 	echo "Maintainer: lbabu@outlook.com" >> $(DIST)/DEBIAN/control
@@ -80,12 +81,11 @@ debmeta:
 	echo "Homepage: https://github.com/lbabu75/figlet" >> $(DIST)/DEBIAN/control
 	echo "Architecture: all" >> $(DIST)/DEBIAN/control
 
+
 # Build .deb package
 #
 deb: all debmeta
-	mkdir -p $(DIST)$(BINDIR)
-	mkdir -p $(DIST)$(MANDIR)/man6
-	mkdir -p $(DIST)$(DEFAULTFONTDIR)
+	mkdir -p $(DIST)$(BINDIR) $(DIST)$(MANDIR)/man6	$(DIST)$(DEFAULTFONTDIR)
 	cp $(BINS) $(DIST)$(BINDIR)
 	cp $(MANUAL) $(DIST)$(MANDIR)/man6
 	cp fonts/*.flf $(DIST)$(DEFAULTFONTDIR)
