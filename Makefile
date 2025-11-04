@@ -73,7 +73,6 @@ clean:
 debmeta:
 	rm -rf $(DIST) $(DIST)_all.deb
 	mkdir -p $(DIST)/DEBIAN
-	@cat << EOF > $(DIST)/DEBIAN/control
 	echo "Package: figlet" > $(DIST)/DEBIAN/control
 	echo "Version: $(VERSION)" >> $(DIST)/DEBIAN/control
 	echo "Maintainer: lbabu@outlook.com" >> $(DIST)/DEBIAN/control
