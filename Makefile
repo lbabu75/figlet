@@ -87,8 +87,7 @@ deb: all debmeta
 	mkdir -p $(DIST)$(BINDIR) $(DIST)$(MANDIR)/man6	$(DIST)$(DEFAULTFONTDIR)
 	cp $(BINS) $(DIST)$(BINDIR)
 	cp $(MANUAL) $(DIST)$(MANDIR)/man6
-	cp fonts/*.flf $(DIST)$(DEFAULTFONTDIR)
-	cp fonts/*.flc $(DIST)$(DEFAULTFONTDIR)
+	cp fonts/* $(DIST)$(DEFAULTFONTDIR)
 	dpkg -b ./$(DIST) ./$(DIST)_all.deb
 
 # Build and Run Docker containers
