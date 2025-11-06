@@ -94,7 +94,7 @@ deb: all debmeta
 # Build and Run Docker containers
 #
 dcrun: deb
-	echo "FROM debian:buster" > Dockerfile
+	echo "FROM debian:bookworm-slim" > Dockerfile
 	echo "WORKDIR /app" >> Dockerfile
 	echo "COPY ./$(DIST)_all.deb /app" >> Dockerfile
 	echo "RUN dpkg -i $(DIST)_all.deb && rm -f $(DIST)_all.deb" >> Dockerfile
