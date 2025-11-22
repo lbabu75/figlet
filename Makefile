@@ -98,6 +98,7 @@ dcrun: deb
 	echo "COPY ./$(DIST)_all.deb /app" >> Dockerfile
 	echo "RUN dpkg -i $(DIST)_all.deb && rm -f $(DIST)_all.deb" >> Dockerfile
 	echo "ENTRYPOINT [\"tail\", \"-f\", \"/dev/null\"]" >> Dockerfile
+	# Build and run containers
 	docker-compose -f docker-compose.yml up -d
 
 dist:
